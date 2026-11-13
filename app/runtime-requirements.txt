@@ -1,0 +1,4 @@
+# Se conservan las versiones de runtime del proyecto base del profesor.
+boto3==1.43.126
+botocore==1.43.126
+redis==8.1.0

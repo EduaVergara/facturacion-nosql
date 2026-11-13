@@ -1,0 +1,23 @@
+services:
+  frontend:
+    image: ${FRONTEND_IMAGE:-facturacion-nosql-cdk-dev:latest}
+    platform: linux/amd64
+    working_dir: /app
+    command: [python, scripts/serve_frontend.py, --host, 0.0.0.0, --port, "8080", --public, /frontend]
+    volumes:
+      - ./app:/app:ro
+      - ./frontend:/frontend:ro
+    ports:
+      - "${FRONTEND_BIND_ADDRESS:-127.0.0.1}:${FRONTEND_PORT:-8080}:8080"
+    environment:
+      AWS_ENDPOINT_URL: http://emulador:4566
+      PYTHONDONTWRITEBYTECODE: "1"
+    depends_on:
+      emulador:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8080/ready', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s

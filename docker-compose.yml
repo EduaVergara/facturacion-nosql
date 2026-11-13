@@ -1,0 +1,71 @@
+name: facturacion-nosql
+
+services:
+  emulador:
+    image: ${LOCALSTACK_IMAGE:-localstack/localstack:4.14}
+    platform: linux/amd64
+    ports:
+      - "${EMULATOR_BIND_ADDRESS:-127.0.0.1}:${EMULATOR_PORT:-4566}:4566"
+    environment:
+      SERVICES: apigateway,lambda,dynamodb,cloudformation,iam,s3,ssm,sts,logs,ecr
+      DOCKER_HOST: unix:///var/run/docker.sock
+      LAMBDA_DOCKER_NETWORK: ${LOCAL_NETWORK_NAME:-facturacion_nosql_net}
+      AWS_DEFAULT_REGION: us-east-1
+      DEBUG: "0"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - emulador_data:/var/lib/localstack
+    networks:
+      default:
+        aliases:
+          - s3.localhost.localstack.cloud
+          - cdk-hnb659fds-assets-000000000000-us-east-1.s3.localhost.localstack.cloud
+    healthcheck:
+      test: [CMD, curl, -fsS, "http://localhost:4566/_localstack/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 24
+      start_period: 20s
+
+  redis:
+    image: redis:7-alpine
+    command: [redis-server, --appendonly, "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  cdk-dev:
+    build: .
+    platform: linux/amd64
+    working_dir: /app
+    volumes:
+      - ./app:/app
+    depends_on:
+      emulador:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      AWS_ENDPOINT_URL: http://emulador:4566
+      AWS_ENDPOINT_URL_S3: http://s3.localhost.localstack.cloud:4566
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_EC2_METADATA_DISABLED: "true"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      LAMBDA_DEPENDENCIES_DIR: /opt/lambda-deps
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:8080}
+    command: [sleep, infinity]
+
+networks:
+  default:
+    name: ${LOCAL_NETWORK_NAME:-facturacion_nosql_net}
+
+volumes:
+  emulador_data:
+  redis_data:

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#143b3a"><title>Folio · Facturación local</title>
+  <link rel="stylesheet" href="/styles.css"><script type="module" src="/app.mjs"></script>
+</head>
+<body>
+  <aside class="sidebar print-hide">
+    <a class="brand" href="#venta"><span class="brand-mark">f.</span><span>Folio<small>FACTURACIÓN LOCAL</small></span></a>
+    <span class="nav-caption">TU COMERCIO</span>
+    <nav aria-label="Navegación principal">
+      <button data-view="venta" class="nav-link active"><span data-icon="bag"></span>Punto de venta</button>
+      <button data-view="productos" class="nav-link"><span data-icon="grid"></span>Productos</button>
+      <button data-view="clientes" class="nav-link"><span data-icon="users"></span>Clientes</button>
+      <button data-view="historial" class="nav-link"><span data-icon="clock"></span>Historial</button>
+      <button data-view="diagnostico" class="nav-link"><span data-icon="activity"></span>Diagnóstico</button>
+    </nav>
+    <div class="sidebar-bottom"><span class="local-symbol"></span><strong>Servidor del comercio</strong><p>Una base central.<br>El trabajo de todas tus cajas.</p><span class="academic">Demostración académica</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar print-hide">
+      <div><span class="eyebrow">ESPACIO DE TRABAJO</span><strong id="top-date"></strong></div>
+      <div class="top-actions"><span id="connection" class="status"><i></i>Comprobando servicios</span><label class="box-select"><span data-icon="monitor"></span><select id="box" aria-label="Caja"></select></label></div>
+    </header>
+    <main id="main" class="print-hide">
+      <div id="notice" class="notice" role="status" hidden></div>
+      <section id="view-venta" class="view">
+        <div class="page-heading"><div><span class="eyebrow">VENTAS</span><h1>Punto de venta</h1><p>Todo listo para tu próxima venta.</p></div><button id="last-receipt" class="button secondary" disabled><span data-icon="receipt"></span>Último comprobante</button></div>
+        <div class="pos-layout">
+          <section class="catalog-panel">
+            <div class="panel-title"><h2>Catálogo <span id="product-count" class="count">0</span></h2><button id="refresh-products" class="icon-button" title="Actualizar catálogo" aria-label="Actualizar catálogo"><span data-icon="refresh"></span></button></div>
+            <label class="search"><span data-icon="search"></span><input id="product-search" type="search" placeholder="Buscar producto por nombre…" aria-label="Buscar entre los productos cargados"><kbd>/</kbd></label>
+            <div class="catalog-meta"><span>Precios antes de impuesto</span><span id="loaded-caption">Cargando catálogo…</span></div>
+            <div id="product-grid" class="product-grid" aria-live="polite"></div>
+            <button id="load-products" class="button secondary load-more" hidden>Cargar más productos</button>
+          </section>
+          <section class="cart-panel" aria-label="Venta actual">
+            <div class="cart-heading"><div class="cart-title"><span data-icon="receipt"></span><h2>Venta actual</h2></div><span id="cart-count" class="count">0</span></div>
+            <div class="cart-person"><label>Operador<input id="operator" maxlength="120" placeholder="Tu nombre" autocomplete="name"></label><div class="label-row"><label for="customer">Cliente</label><button id="quick-client" class="text-button">+ Nuevo cliente</button></div><select id="customer" aria-label="Cliente de la venta"></select><button id="more-sale-clients" class="text-button" hidden>Cargar más clientes</button></div>
+            <div id="cart-lines" class="cart-lines"></div>
+            <div id="pending" class="pending" hidden></div>
+            <div class="cart-summary"><div><span>Subtotal</span><strong id="subtotal">$ 0,00</strong></div><div><span>Impuestos estimados</span><strong id="taxes">$ 0,00</strong></div><div class="total-row"><span>Total estimado<small>COP</small></span><strong id="total">$ 0,00</strong></div><button id="confirm-sale" class="button primary full" disabled><span data-icon="check"></span><span id="confirm-label">Confirmar venta</span><span aria-hidden="true">→</span></button><button id="review-sale" class="button secondary full" hidden>Revisar carrito y precios</button><button id="clear-cart" class="text-button full" disabled>Vaciar borrador</button><p class="summary-note">El servidor calcula y confirma el valor final.</p></div>
+          </section>
+        </div>
+      </section>
+      <section id="view-productos" class="view" hidden>
+        <div class="page-heading"><div><span class="eyebrow">CATÁLOGO</span><h1>Productos</h1><p>Precios, impuestos y disponibilidad de tu comercio.</p></div><button id="new-product" class="button primary">+ Crear producto</button></div>
+        <div class="sheet"><div class="sheet-toolbar"><label class="search"><span data-icon="search"></span><input id="admin-product-search" placeholder="Buscar entre los productos cargados" type="search" aria-label="Buscar productos"></label><button id="admin-refresh-products" class="button secondary">Actualizar</button></div><div class="table-scroll"><table><thead><tr><th>Producto</th><th>Precio unitario</th><th>Impuesto</th><th>Estado</th><th></th></tr></thead><tbody id="product-table"></tbody></table></div><button id="admin-more-products" class="button secondary load-more" hidden>Cargar más productos</button></div>
+      </section>
+      <section id="view-clientes" class="view" hidden>
+        <div class="page-heading"><div><span class="eyebrow">DIRECTORIO</span><h1>Clientes</h1><p>Identificaciones y nombres para cada venta.</p></div><button id="new-client" class="button primary">+ Crear cliente</button></div>
+        <div class="sheet"><div class="sheet-toolbar"><label class="search"><span data-icon="search"></span><input id="client-search" placeholder="Buscar entre los clientes cargados" type="search" aria-label="Buscar clientes"></label><button id="refresh-clients" class="button secondary">Actualizar</button></div><div class="table-scroll"><table><thead><tr><th>Cliente</th><th>Tipo</th><th>Identificación</th><th></th></tr></thead><tbody id="client-table"></tbody></table></div><button id="more-clients" class="button secondary load-more" hidden>Cargar más clientes</button></div>
+      </section>
+      <section id="view-historial" class="view" hidden>
+        <div class="page-heading"><div><span class="eyebrow">CONSULTAS</span><h1>Historial de ventas</h1><p>Encuentra una venta y abre su comprobante completo.</p></div></div>
+        <form id="history-form" class="sheet filter-bar"><label>Consultar por<select id="history-kind"><option value="dia">Día del comercio</option><option value="cliente">Cliente</option><option value="caja">Caja</option></select></label><label id="history-day-label">Día de Colombia<input id="history-day" type="date" required></label><label id="history-client-label" hidden>Identificación del cliente<input id="history-client" placeholder="CC#90000001" list="client-options"><datalist id="client-options"></datalist></label><label id="history-box-label" hidden>Caja<select id="history-box"></select></label><label id="history-from-label" hidden>Desde (incluido)<input id="history-from" type="date"></label><label id="history-until-label" hidden>Hasta (sin incluir)<input id="history-until" type="date"></label><button class="button primary" type="submit">Consultar ventas</button><p id="history-hint" class="filter-hint">El día se interpreta en la hora de Colombia.</p></form>
+        <div class="sheet history-results"><div class="panel-title"><h2>Facturas <span id="history-count" class="count">0</span></h2><span id="history-caption" class="muted">Aplica los filtros para consultar.</span></div><div class="table-scroll"><table><thead><tr><th>Referencia</th><th>Fecha · Colombia</th><th>Cliente</th><th>Caja</th><th>Total</th><th></th></tr></thead><tbody id="history-table"></tbody></table></div><button id="more-history" class="button secondary load-more" hidden>Cargar más facturas</button></div>
+      </section>
+      <section id="view-diagnostico" class="view" hidden>
+        <div class="page-heading"><div><span class="eyebrow">SERVICIOS</span><h1>Diagnóstico</h1><p>Estado del servidor y procedencia de las consultas.</p></div><button id="refresh-health" class="button secondary">Comprobar servicios</button></div>
+        <div id="health-cards" class="health-cards"></div>
+        <div class="sheet"><div class="panel-title"><h2>Actividad de esta terminal</h2><span class="muted">Últimas 40 peticiones</span></div><div class="table-scroll"><table><thead><tr><th>Hora</th><th>Petición</th><th>Estado</th><th>Origen</th><th>Caché</th><th>Tiempo</th></tr></thead><tbody id="request-table"></tbody></table></div></div>
+        <details class="sheet raw-details"><summary>Respuesta del estado de servicios</summary><pre id="health-json"></pre></details>
+      </section>
+    </main>
+    <footer class="app-footer print-hide"><span>Folio · Proyecto académico de Bases de Datos NoSQL</span><span>Moneda COP · Hora de Colombia</span></footer>
+  </div>
+  <dialog id="editor" aria-labelledby="editor-title" class="editor print-hide"><form id="editor-form"><div class="dialog-heading"><h2 id="editor-title"></h2><button type="button" class="icon-button" data-close="editor" aria-label="Cerrar formulario">✕</button></div><div id="editor-fields" class="editor-fields"></div><p id="editor-error" class="form-error" role="alert" hidden></p><div class="dialog-actions"><button type="button" class="button secondary" data-close="editor">Cancelar</button><button id="editor-save" class="button primary" type="submit">Guardar</button></div></form></dialog>
+  <dialog id="receipt-dialog" aria-labelledby="receipt-title" class="receipt-dialog"><div class="dialog-heading print-hide"><h2 id="receipt-title">Comprobante de venta</h2><button class="icon-button" data-close="receipt-dialog" aria-label="Cerrar comprobante">✕</button></div><div id="receipt-content"></div><div class="dialog-actions print-hide"><button class="button secondary" data-close="receipt-dialog">Cerrar</button><button id="print-receipt" class="button primary"><span data-icon="printer"></span>Imprimir comprobante</button></div></dialog>
+</body></html>

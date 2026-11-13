@@ -1,0 +1,6 @@
+aws-cdk-lib>=2.100.0,<3
+constructs>=10,<11
+-r runtime-requirements.txt
+pytest>=8,<10
+moto[dynamodb]>=5,<6
+fakeredis>=2,<3
