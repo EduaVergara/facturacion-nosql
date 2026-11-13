@@ -133,7 +133,7 @@ en ejemplos, pruebas y capturas.
 ## Procedencia
 
 El stack y enfoque académico parten de
-[bd_no_sql del profesor Charles Oliveros](https://gitlab.com/caov_unimag/bd_no_sql).
+[bd_no_sql del profesor Carlos Oliveros](https://gitlab.com/caov_unimag/bd_no_sql).
 Folio adapta ese entorno al dominio de facturación y agrega interfaz,
 transacciones, idempotencia, historiales, pruebas y operación por etapas.
 
