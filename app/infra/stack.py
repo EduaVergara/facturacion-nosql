@@ -4,6 +4,7 @@ import hashlib
 import shutil
 from pathlib import Path
 
+
 import aws_cdk as cdk
 import jsii
 from aws_cdk import aws_apigateway as apigw

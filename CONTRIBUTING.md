@@ -2,7 +2,7 @@
 
 Trabajamos sobre la etapa 6 funcional del proyecto académico. El cierre de
 documentación y sustentación de la etapa 7 sigue pendiente. Antes de cambiar
-código, lee el [README](README.md) y la [arquitectura](docs/ARQUITECTURA.md).
+código, lee el [README](README.md) y la [arquitectura](docs/entrega/ARQUITECTURA.md).
 
 ## Preparar un cambio
 

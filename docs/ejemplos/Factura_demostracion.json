@@ -1,0 +1,56 @@
+{
+  "PK": "FACTURA#00000000-0000-4000-8000-000000000099",
+  "SK": "DOCUMENTO",
+  "tipo_entidad": "FACTURA",
+  "schema_version": 1,
+  "factura_id": "00000000-0000-4000-8000-000000000099",
+  "referencia": "DEMO-00000000-0000-4000-8000-000000000099",
+  "fecha_utc": "2026-11-12T09:02:00.000Z",
+  "fecha_local": "2026-11-12",
+  "creado_en": "2026-11-12T09:02:00.000Z",
+  "caja_id": "c01",
+  "operador_declarado": "Operador de prueba",
+  "cliente_id": "GENERAL",
+  "cliente": {
+    "nombre": "Cliente general de demostracion",
+    "tipo_documento": "GENERAL",
+    "numero_documento": "",
+    "version": 1
+  },
+  "moneda": "COP",
+  "lineas": [
+    {
+      "producto_id": "00000000-0000-4000-8000-000000000001",
+      "nombre": "Cuaderno de demostracion",
+      "version": 1,
+      "cantidad": 3,
+      "precio_unitario_centavos": 500000,
+      "impuesto_bps": 1000,
+      "base_centavos": 1500000,
+      "impuesto_centavos": 150000,
+      "total_centavos": 1650000
+    },
+    {
+      "producto_id": "00000000-0000-4000-8000-000000000003",
+      "nombre": "Carpeta de demostracion",
+      "version": 1,
+      "cantidad": 3,
+      "precio_unitario_centavos": 300000,
+      "impuesto_bps": 0,
+      "base_centavos": 900000,
+      "impuesto_centavos": 0,
+      "total_centavos": 900000
+    }
+  ],
+  "subtotal_centavos": 2400000,
+  "impuestos_centavos": 150000,
+  "total_centavos": 2550000,
+  "solicitud_id": "00000000-0000-4000-8000-000000000098",
+  "alcance": "PROTOTIPO_ACADEMICO",
+  "GSI1PK": "CLIENTE#GENERAL",
+  "GSI1SK": "FACTURA#2026-11-12T09:02:00.000Z#00000000-0000-4000-8000-000000000099",
+  "GSI2PK": "CAJA#c01",
+  "GSI2SK": "FACTURA#2026-11-12T09:02:00.000Z#00000000-0000-4000-8000-000000000099",
+  "GSI3PK": "VENTAS#DIA#2026-11-12",
+  "GSI3SK": "FACTURA#2026-11-12T09:02:00.000Z#00000000-0000-4000-8000-000000000099"
+}

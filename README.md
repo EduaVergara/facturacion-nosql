@@ -8,8 +8,8 @@ Redis acelera las consultas repetidas sin sustituir la persistencia de las venta
 documentación final y sustentación de la etapa 7 pendientes. Prototipo académico,
 sin autorización fiscal ni integración DIAN.
 
-[Instalación](docs/INSTALACION.md) · [Arquitectura](docs/ARQUITECTURA.md) ·
-[API](docs/API.md) · [Validación](docs/VALIDACION.md) · [Colaborar](CONTRIBUTING.md)
+[Instalación](docs/INSTALACION.md) · [Arquitectura](docs/entrega/ARQUITECTURA.md) ·
+[API](docs/entrega/API.md) · [Guía de exposición](docs/entrega/Folio_Guia.html) · [Colaborar](CONTRIBUTING.md)
 
 ## Funcionalidades
 
@@ -75,6 +75,7 @@ puertos alternativos, arranque posterior y recuperación del emulador.
 | frontend/ | Interfaz y pruebas de la terminal |
 | scripts/ | Arranque y verificaciones con PowerShell |
 | docs/ | Documentación de uso y colaboración |
+| docs/entrega/ | Entregables del proyecto y guía HTML de exposición |
 | .github/ | Integración continua y plantillas |
 
 Los archivos ETAPA4.md, ETAPA5.md, ETAPA6.md y RECUPERACION_API.md conservan notas
@@ -107,21 +108,21 @@ el código. No despliega en AWS ni sustituye la demostración con LocalStack.
 
 La etapa 6 se verificó en Docker con **208 pruebas Python, 147 subpruebas y
 23 pruebas Node**, además de comprobaciones HTTP de dos cajas, reintentos,
-comprobantes e historial. [Resultados y pendientes](docs/VALIDACION.md).
+comprobantes e historial. Consulta la [guía de exposición](docs/entrega/Folio_Guia.html)
+para preparar la demostración.
 
 ## Capturas
 
 <!-- CAPTURAS:INICIO -->
-Puedes incorporar las capturas originales de la demostración con el
-[comando de importación](docs/CAPTURAS.md). Esta preparación no incluye imágenes
-descargadas ni utiliza vistas simuladas como evidencia.
+Los entregables y la [guía HTML de exposición](docs/entrega/Folio_Guia.html)
+se encuentran en `docs/entrega`. Utiliza capturas de la demostración con datos
+ficticios como evidencia del funcionamiento.
 <!-- CAPTURAS:FIN -->
 
 ## Colaborar
 
 Trabaja en una rama y envía un pull request hacia `main`. La guía
 [CONTRIBUTING.md](CONTRIBUTING.md) explica cómo comprobar y proponer cambios.
-Para la primera publicación consulta [Publicar en GitHub](docs/PUBLICAR_GITHUB.md).
 
 ## Alcance académico
 
