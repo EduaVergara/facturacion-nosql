@@ -1,5 +1,12 @@
 # Folio · Facturación NoSQL
 
+**Participantes del proyecto**
+
+- Sergio Mosquera
+- Ricardo Cevallos
+- Ivan Marchena
+- Stiven Navarro
+
 Sistema académico de ventas centralizadas: varias cajas registran compras desde
 el navegador y un servidor local conserva cada factura completa en DynamoDB.
 Redis acelera las consultas repetidas sin sustituir la persistencia de las ventas.
