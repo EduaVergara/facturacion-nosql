@@ -85,6 +85,7 @@ def invoice_document(data, products, customer, *, identifier=None, instant=None)
     taxes = sum(line["impuesto_centavos"] for line in lines)
     if subtotal + taxes > MAX_SAFE_INTEGER:
         raise ApiError(400, "El total excede el rango monetario de la aplicacion")
+    #uso de pk y sk para particionar por factura y permitir consultas por cliente, caja y dia de venta
     item = {"PK": f"FACTURA#{identifier}", "SK": "DOCUMENTO", "tipo_entidad": "FACTURA",
             "schema_version": 1, "factura_id": identifier, "referencia": f"DEMO-{identifier}",
             "fecha_utc": stamp, "fecha_local": day, "creado_en": stamp,
@@ -94,6 +95,7 @@ def invoice_document(data, products, customer, *, identifier=None, instant=None)
             "moneda": "COP", "lineas": lines, "subtotal_centavos": subtotal,
             "impuestos_centavos": taxes, "total_centavos": subtotal + taxes,
             "solicitud_id": data["solicitud_id"], "alcance": "PROTOTIPO_ACADEMICO",
+            #Claves de los indices secundarios globales para consultas por cliente, caja y dia de venta
             "GSI1PK": f"CLIENTE#{data['cliente_id']}", "GSI1SK": f"FACTURA#{stamp}#{identifier}",
             "GSI2PK": f"CAJA#{data['caja_id']}", "GSI2SK": f"FACTURA#{stamp}#{identifier}",
             "GSI3PK": f"VENTAS#DIA#{day}", "GSI3SK": f"FACTURA#{stamp}#{identifier}"}
