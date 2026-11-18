@@ -6,6 +6,7 @@
 - Ricardo Cevallos
 - Ivan Marchena
 - Stiven Navarro
+- Eduardo Vergara
 
 Sistema académico de ventas centralizadas: varias cajas registran compras desde
 el navegador y un servidor local conserva cada factura completa en DynamoDB.
